@@ -16,13 +16,11 @@ const Login = () => {
 				<label>Password</label>
 				<input />
 			</div>
-			<button>Submit</button>
+			<button><Link to='/home'>Submit</Link></button>
 		</form>
 		<h3>Dont have an account?</h3>
 		<button><Link to='/Register'>Register Account</Link></button>
-		{/* Having a link will not work because it will load the link under the login form */}
-		{/* must use another way to switch between sites */}
-		{/* What about havng a routs and link */}
+	
 
 			</div>
 		</>
