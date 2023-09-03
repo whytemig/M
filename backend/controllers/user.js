@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const express = require('express');
-const userRouter = express.Router()
+const userRouter = express.Router();
 const Post = require('../models/Post');
 const authToken = require('../middleware/authToken');
 
@@ -164,7 +164,9 @@ userRouter.put('/friendorunfriend/:friendUserId', authToken, async (req,res)=>{
         const friendId = req.params.friendUserId;
         
         if (loginId === friendId) {
-          throw new Error("You can't follow yourself");
+           return res
+             .status(404)
+             .json({ message: "Can't follow yourself" });
         }
 
          const loginUser = await User.findById(loginId);

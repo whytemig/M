@@ -4,7 +4,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const app = express();
 const authRouter = require("./controllers/auth.js");
-const userRouter = require('./controllers/user.js')
+const userRouter = require('./controllers/user.js');
+const postRouter = require('./controllers/post.js');
 
 
 /* CONFIGURATIONS */
@@ -15,7 +16,8 @@ app.use(express.urlencoded({ extended: true }));
 
 /* ROUTES */
 app.use("/auth", authRouter);
-app.use('/user', userRouter)
+app.use('/user', userRouter);
+app.use('/post', postRouter);
 
 /* MONGOOSE SETUP */
 const port = process.env.PORT || 8000;
