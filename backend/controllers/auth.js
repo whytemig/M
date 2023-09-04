@@ -64,10 +64,24 @@ authRouter.post("/login", async (req, res) => {
       expiresIn: "5h",
     });
 
-    res.status(200).json({ token, user });
+     res
+       .cookie("token", token, { expire: 360000 + Date.now() })
+       .status(200)
+       .json(user)
+       .status(200).json({ token, user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
+
+
+authRouter.get('/logout', (req, res) => {
+  try {
+    res.clearCookie("token", { sameSite: "none", secure: true }).status(200).send("User Logged out!")
+    
+  } catch (err) {
+     res.status(500).json({ error: error.message });
+  }
+})
 
 module.exports = authRouter;
