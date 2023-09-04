@@ -14,6 +14,7 @@ function App() {
 			<Route path="/" element={<Login />} />
 				<Route index element={<Home />} />
 				<Route path="Register" element={<Register />} />
+
 			
 		</Routes>
 	);
