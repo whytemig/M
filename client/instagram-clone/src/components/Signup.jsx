@@ -1,94 +1,136 @@
-// import { Outlet, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/authSlice";
 
-// const Register = () => {
-// 	return (
-// 		<>
-// 			<div>
-// 				<title>Register</title>
-// 				<h1>INSTAGRAM CLONE</h1>
-// 				<h3>Register</h3>
-// 				<form>
-// 					<div>
-// 						<label>Email</label>
-// 						<input />
-// 					</div>
-// 					<div>
-// 						<label>Username</label>
-// 						<input />
-// 					</div>
-// 					<div>
-// 						<label>Password</label>
-// 						<input />
-// 					</div>
-// 					<button>
-// 						<Link to="/home">Submit</Link>
-// 					</button>
-// 				</form>
-// 				<h3>Already have an account?</h3>
-// 				<button>
-// 					<Link to="/Login">Login</Link>
-// 				</button>
-// 			</div>
-// 		</>
-// 	);
-// };
 
-// export default Register;
 
-import { useState } from 'react';
-import { signupFields } from "../constants/formFields"
-import FormAction from "./FormAction";
-import Input from "./Input";
+const Register = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-const fields=signupFields;
-let fieldsState={};
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-fields.forEach(field => fieldsState[field.id]='');
 
-export default function Signup(){
-  const [signupState,setSignupState]=useState(fieldsState);
+  const errorMessage = () => {
+      if (
+        firstName === "" ||
+        lastName === "" ||
+        username === "" ||
+        email === "" ||
+        password === ""
+      ) {
+        toast.error("All Inputs are require", {
+          position:'top-center',
+        });
+      }
 
-  const handleChange=(e)=>setSignupState({...signupState,[e.target.id]:e.target.value});
-
-  const handleSubmit=(e)=>{
-    e.preventDefault();
-    console.log(signupState)
-    createAccount()
+      if (!email.includes("@")) {
+        toast.error("Invalid Email", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else if (password.length < 7) {
+        toast.error("Password must be 6 characters minimum", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } 
   }
 
-  //handle Signup API Integration here
-  const createAccount=()=>{
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+     
+      
+      try {
+        const response = await fetch('http://localhost:5500/auth/register', {
+          headers: {
+            'Content-type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify({firstName, lastName, username, email, password})
+        })
+        const data = await response.json()
+        // console.log(data)
+        if (data) {
+          // console.log(dispatch(register(data)));
+          navigate("/login");
+        } 
 
+        if (response.status === 400) {
+          navigate("/signup");
+        }
+        
+        
+      } catch (error) {
+        console.log(error.message)
+      }
+    
   }
 
-    return(
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          
-        <div className="">
-        {
-                fields.map(field=>
-                        <Input
-                            key={field.id}
-                            handleChange={handleChange}
-                            value={signupState[field.id]}
-                            labelText={field.labelText}
-                            labelFor={field.labelFor}
-                            id={field.id}
-                            name={field.name}
-                            type={field.type}
-                            isRequired={field.isRequired}
-                            placeholder={field.placeholder}
-                    />
-                    
-                
-                )
-            }
-          <FormAction handleSubmit={handleSubmit} text="Signup" />
 
-        </div>
+	return (
+    <>
+      <div>
+        <title>Register</title>
+        <h1>INSTAGRAM CLONE</h1>
+        <h3>Register</h3>
+        <form onSubmit={handleSignUp}>
+          <div>
+            <label>First Name</label>
+            <input
+              type="text"
+              placeholder="Enter your first name..."
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
 
-         
+          <div>
+            <label>Last Name</label>
+            <input
+              type="text"
+              placeholder="Enter a last name"
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
 
-      </form>
-    )
-}
+          <div>
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="Enter youe email..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Username</label>
+            <input
+              type="text"
+              placeholder="Enter a Username..."
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Enter a password..."
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button onClick={errorMessage}>Submit</button>
+        </form>
+        <h3>Already have an account?</h3>
+        <button>Login</button>
+        <ToastContainer />
+      </div>
+    </>
+  );
+};
+
+export default Register;
+
