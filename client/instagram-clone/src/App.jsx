@@ -8,6 +8,9 @@ import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
  
 
+
+
+
 function App() {
 	return (
 
@@ -16,11 +19,12 @@ function App() {
 				<Routes>
 					<Route path="/" element={<LoginPage />} />
 					<Route index element={<LoginPage />} />
-					{/* <Route path="/Register" element={<Register />} /> */}
-					{/* <Route path="/Home" element={<Home />} /> */}
 					<Route path="/signup" element={<SignupPage />} />
+					<Route path="/home" element={<Home />} />
 
 				</Routes>
+
+				
 			</div>
 		</div>
 
