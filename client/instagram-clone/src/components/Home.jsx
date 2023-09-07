@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Layout from "./Layout";
+import Login from "./Login";
 
 const Home = () => {
 	return (
 		<>
 			<div>
-				<Layout/>
-				<p>
-					fuck this shit
-				</p>
+				<Layout />
+				<Outlet />
+				<p>test test test</p>
 			</div>
-			<Outlet/>
-
 		</>
 	);
 };
