@@ -85,7 +85,7 @@ const Login = () => {
           <button onClick={errorMessage}>Submit</button>
         </form>
         <h3>Already have an account?</h3>
-        <button>Login</button>
+        <Link>Login</Link>
         <ToastContainer />
       </div>
     </>
