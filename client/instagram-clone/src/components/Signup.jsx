@@ -15,9 +15,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-import { signupFields } from "../constants/formFields"
-import FormAction from "./FormAction";
-import Input from "./Input";
+
 
 
   const navigate = useNavigate();
@@ -63,7 +61,7 @@ import Input from "./Input";
         const data = await response.json()
         // console.log(data)
         if (data) {
-          // console.log(dispatch(register(data)));
+          dispatch(register(data));
           navigate("/login");
         } 
 
