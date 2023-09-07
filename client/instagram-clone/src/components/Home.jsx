@@ -1,16 +1,9 @@
-import { Outlet, Link } from "react-router-dom";
-/** @type {import('tailwindcss').Config} */
+import React from 'react'
 
 const Home = () => {
-	return (
-		<>
-		<div>
-			<title>Home</title>
-<h1>this is home</h1>
-</div>
+  return (
+	<div>Home</div>
+  )
+}
 
-	</>
-	);
-};
-
-export default Home;
+export default Home
