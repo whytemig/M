@@ -1,6 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
-/** @type {import('tailwindcss').Config} */
-import Layout from "./Layout";
+import React from 'react'
 
 const Home = () => {
 	return (

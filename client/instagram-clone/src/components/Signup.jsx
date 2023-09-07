@@ -31,17 +31,17 @@ const Register = () => {
         password === ""
       ) {
         toast.error("All Inputs are require", {
-          position:'top-center',
+          position:'top-left',
         });
       }
 
       if (!email.includes("@")) {
         toast.error("Invalid Email", {
-          position: toast.POSITION.TOP_CENTER,
+          position: "top-left",
         });
       } else if (password.length < 7) {
         toast.error("Password must be 6 characters minimum", {
-          position: toast.POSITION.TOP_CENTER,
+          position: "top-left",
         });
       } 
   }
@@ -56,12 +56,12 @@ const Register = () => {
             'Content-type': 'application/json'
           },
           method: "POST",
-          body: JSON.stringify({firstName, lastName, username, email, password})
-        })
+          body: JSON.stringify({ firstName, lastName, username, email, password })
+        });
         const data = await response.json()
         // console.log(data)
         if (data) {
-          dispatch(register(data));
+          (dispatch(register(data)));
           navigate("/login");
         } 
 

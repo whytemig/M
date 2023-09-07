@@ -1,13 +1,13 @@
 import "./App.css";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
 import Home from "./components/Home";
-import Register from "./components/Signup";
-import LoginPage from "./pages/Login";
-import SignupPage from "./pages/Signup";
-import ProfilePage from "./pages/Profile";
-import Layout from "./components/Layout";
+import LoginPage from './pages/Login';
+import SignupPage from './pages/Signup';
+import ProfilePage from "./pages/profile"; 
+
+
+
 
 function App() {
 	return (

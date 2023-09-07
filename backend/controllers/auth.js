@@ -63,11 +63,11 @@ authRouter.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "5h",
     });
+    // console.log(token)
 
      res
        .status(200)
-       .json(user)
-      .status(200).json({ token, user });
+       .json({user, token});
     
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -80,7 +80,7 @@ authRouter.get('/logout', (req, res) => {
     res.clearCookie("token", { sameSite: "none", secure: true }).status(200).send("User Logged out!")
     
   } catch (err) {
-     res.status(500).json({ error: error.message });
+     res.status(500).json({ error: err.message });
   }
 })
 
