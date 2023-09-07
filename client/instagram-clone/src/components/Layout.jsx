@@ -68,7 +68,7 @@ const Layout = () => {
 				</nav>
 			</div>
 
-			<Outlet />
+			{/* <Outlet /> */}
 		</>
 	);
 };
