@@ -1,62 +1,95 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/authSlice";
 
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { loginFields } from "../constants/formFields";
-import FormAction from "./FormAction";
-import FormExtra from "./FormExtra";
-import Input from "./Input";
-
-const fields=loginFields;
-let fieldsState = {};
-fields.forEach(field=>fieldsState[field.id]='');
-
-export default function Login(){
-    const [loginState,setLoginState]=useState(fieldsState);
-
-    const handleChange=(e)=>{
-        setLoginState({...loginState,[e.target.id]:e.target.value})
+const Login = () => {
+  	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	
+	const errorMessage = () => {
+    if (
+      password === ""
+    ) {
+      toast.error("All Inputs are require", {
+        position: "top-left",
+      });
     }
 
-    const handleSubmit=(e)=>{
-        e.preventDefault();
-        authenticateUser();
+    if (!email.includes("@")) {
+      toast.error("Invalid Email", {
+        position: 'top-left',
+      });
+    } else if (password.length < 7) {
+      toast.error("Password must be 6 characters minimum", {
+        position: 'top-left',
+      });
     }
-
-    //Handle Login API Integration here
-    const authenticateUser = () =>{
-
-    }
-
-    return(
+	};
+	
+	const handleLoginUp = async (e) => { 
+		e.preventDefault();
 		
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <div className="-space-y-px">
-            {
-                fields.map(field=>
-                        <Input 
-                            key={field.id}
-                            handleChange={handleChange}
-                            value={loginState[field.id]}
-                            labelText={field.labelText}
-                            labelFor={field.labelFor}
-                            id={field.id}
-                            name={field.name}
-                            type={field.type}
-                            isRequired={field.isRequired}
-                            placeholder={field.placeholder}
-                    />
-                
-                )
-            }
-        </div>
+		try {
+			const response = await fetch("http://localhost:5500/auth/login", {
+        headers: {
+          "Content-type": "application/json",
+				},
+				method: 'POST',
+				body: JSON.stringify({email, password})
+			});
+			const data = await response.json();
+			
+			dispatch(login(data))
+			
+			setEmail('')
+			setPassword('')
+			navigate('/')
+			
+		} catch (error) {
+			
+		}
 
-        <FormExtra/>
-        {/* <FormAction handleSubmit={handleSubmit} text="Login"/>  */}
-        <Link to='/home' text="Login">This temp link takes you to home page </Link>
-        {/* Should update this to POST or res.redirect when Mig has it finished */}
+	}
+	
 
+  return (
+    <>
+      <div>
+       
+        <h1>INSTAGRAM CLONE</h1>
+        <h3>Login</h3>
+        <form onSubmit={handleLoginUp}>
+          <div>
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="Enter youe email..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-      </form>
-    )
-}
+          <div>
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Enter a password..."
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button onClick={errorMessage}>Submit</button>
+        </form>
+        <h3>Already have an account?</h3>
+        <Link>Login</Link>
+        <ToastContainer />
+      </div>
+    </>
+  );
+};
 
+export default Login;

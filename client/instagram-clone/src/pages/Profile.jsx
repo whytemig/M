@@ -6,9 +6,9 @@ import { Outlet, Link } from "react-router-dom";;
 const ProfilePage = () => {
 
   return (
-    <Layout />,
-    <Profile />,
-    <Outlet/>
+    <>
+      <Profile />
+    </>
   )
 
 }
