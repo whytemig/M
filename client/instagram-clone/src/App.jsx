@@ -16,11 +16,21 @@ function App() {
 				
 				
 				<Routes>
+<<<<<<< HEAD
 					<Route path="/" element={<Layout />} />
 					<Route index element={<LoginPage />} />
 					<Route path="/signup" element={<SignupPage />} />
 					<Route path="/home" element={<Home />} />
 					<Route path="/Layout" element={<Layout />} />
+=======
+
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="/" element={<LoginPage />} />
+					<Route index element={<LoginPage />} />
+					<Route path="/signup" element={<SignupPage />} />
+					<Route path="/home" element={<Home />} />
+            
+>>>>>>> cde0341732c1301a4c89427c0112ad154f233c73
 					<Route path="/profile" element={<ProfilePage />} />
 				
 					
