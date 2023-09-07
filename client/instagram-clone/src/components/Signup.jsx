@@ -16,6 +16,11 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
 
+// import { signupFields } from "../constants/formFields"
+// import FormAction from "./FormAction";
+// import Input from "./Input";
+
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

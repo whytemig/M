@@ -53,8 +53,7 @@ const Profile = () => {
                     </div>
                 ))}
             </div>
-        </div>,
-        <Outlet/>
+        </div>
     );
 };
 
