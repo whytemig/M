@@ -15,9 +15,9 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-import { signupFields } from "../constants/formFields"
-import FormAction from "./FormAction";
-import Input from "./Input";
+// import { signupFields } from "../constants/formFields"
+// import FormAction from "./FormAction";
+// import Input from "./Input";
 
 
   const navigate = useNavigate();
