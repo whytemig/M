@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Outlet, Link } from "react-router-dom";;
+import Layout from "./Layout";
+
 
 const Profile = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,6 +27,8 @@ const Profile = () => {
     }, [searchTerm]);
 
     return (
+      
+
         <div className="max-w-md mx-auto bg-white p-4 shadow-md rounded-lg">
             {/* Search input */}
             <div className="mb-4">
@@ -48,7 +53,8 @@ const Profile = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </div>,
+        <Outlet/>
     );
 };
 
