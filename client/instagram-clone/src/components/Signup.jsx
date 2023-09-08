@@ -5,6 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 import { register } from "../redux/authSlice";
+import { signupFields } from "../constants/formFields"
+import FormAction from "./FormAction";
+import Input from "./Input";
 
 
 
@@ -16,9 +19,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
 
 
-// import { signupFields } from "../constants/formFields"
-// import FormAction from "./FormAction";
-// import Input from "./Input";
+
 
 
 
