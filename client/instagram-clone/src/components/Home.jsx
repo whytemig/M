@@ -1,13 +1,13 @@
 import React from 'react'
+import { Outlet } from "react-router-dom";
+import Layout from "./Layout";
 
 const Home = () => {
 	return (
 		<>
 			<div>
 				<Layout/>
-				<p>
-					fuck this shit
-				</p>
+			<p>test test test</p>
 			</div>
 			<Outlet/>
 
