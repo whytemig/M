@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-// import { Outlet } from "react-router-dom";
+import React from 'react'
+import { Outlet } from "react-router-dom";
 import Layout from "./Layout";
 import Modal, {ReactModal} from 'react-modal';
 
@@ -7,11 +7,8 @@ import Modal, {ReactModal} from 'react-modal';
 
 
 
+
 const Home = () => {
-	
-
-	
-
 
 	return (
 	  
