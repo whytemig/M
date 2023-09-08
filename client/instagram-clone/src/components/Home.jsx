@@ -1,15 +1,25 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState } from "react";
+// import { Outlet } from "react-router-dom";
 import Layout from "./Layout";
+import Modal, {ReactModal} from 'react-modal';
+
+
+
 
 
 const Home = () => {
-  return (
+	
+
+	
+
+
+	return (
+	  
+	
     <>
-      <div>
+      <div id="main">
         <Layout />
-        <Outlet />
-        <p>test test test</p>
+			{/* <Outlet /> */}
       </div>
     </>
   );
