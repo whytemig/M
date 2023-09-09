@@ -3,16 +3,17 @@ import { Outlet } from "react-router-dom";
 import Layout from "./Layout";
 
 
+
 const Home = () => {
-  return (
-    <>
-      <div>
-        <Layout />
-        <Outlet />
-        <p>test test test</p>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Layout />
+			{/* <Outlet /> */}
+
+
+		
+		</>
+	);
 };
 
 export default Home;
