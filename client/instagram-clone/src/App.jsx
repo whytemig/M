@@ -8,6 +8,7 @@ import ProfilePage from "./pages/Profile";
 import React, { useState } from "react";
 import Post from "./components/Post";
 
+
 function App() {
 	const [isPostOpen, setIsPostOpen] = useState(false);
 
