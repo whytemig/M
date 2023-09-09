@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
+import { SinglePost } from './SinglePost';
 
 
 
@@ -13,7 +14,7 @@ const Post = () => {
 
   useEffect(() => {
 
-     const fetchPosts = async() => {
+    const fetchPosts = async () => {
       try {
         const response = await fetch(`http://localhost:5500/post/timestatus/posts`, {
           headers: {
@@ -21,8 +22,8 @@ const Post = () => {
           }
         })
         const data = await response.json()
-        console.log(data);
-        // setPosts(data)
+      //  console.log(data);
+        setPosts(data)
       } catch (error) {
         console.log(error.message)
       }
@@ -33,10 +34,14 @@ const Post = () => {
 
 
   return (
-    <div className='flex justify-center mx-auto bg-slate-400 h-full w-full max-w-[1240px]'>
+    <div className='flex justify-center mx-auto'>
       <h1>Post</h1>
+
+      {posts.map((post) =>{
+        return <SinglePost key={post._id } post={post}/>
+      })}
+    
     </div>
   )
 }
-
 export default Post

@@ -59,7 +59,7 @@ export default function Modal() {
 
   return (
     <>
-      <div className="flex justify-center mx-auto max-w-[1240px] bg-slate-400">
+      <div className="flex justify-center mx-auto max-w-[1240px] ">
         <button
           className="bg-cyan-500 text-white  font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-2 mx-2 ease-linear transition-all duration-150 w-60"
           type="button"
