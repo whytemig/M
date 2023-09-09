@@ -1,18 +1,26 @@
-import React from "react";
+import React from 'react'
 import { Outlet } from "react-router-dom";
 import Layout from "./Layout";
+import Modal, {ReactModal} from 'react-modal';
+
+
+
+
+
 
 
 const Home = () => {
-  return (
-    <>
-      <div>
-        <Layout />
-        <Outlet />
-        <p>test test test</p>
-      </div>
-    </>
-  );
+
+	return (
+		<>
+			<Layout />
+			{/* <Outlet /> */}
+
+
+		
+		</>
+	);
+
 };
 
 export default Home;
