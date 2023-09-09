@@ -67,7 +67,6 @@ const Layout = () => {
 					</div>
 				</nav>
 			</div>
-
 		</>
 
 	);
