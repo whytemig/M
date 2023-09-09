@@ -8,18 +8,19 @@ import Modal, {ReactModal} from 'react-modal';
 
 
 
+
 const Home = () => {
 
 	return (
-	  
-	
-    <>
-      <div id="main">
-        <Layout />
+		<>
+			<Layout />
 			{/* <Outlet /> */}
-      </div>
-    </>
-  );
+
+
+		
+		</>
+	);
+
 };
 
 export default Home;
