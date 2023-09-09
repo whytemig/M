@@ -7,7 +7,8 @@ const app = express();
 const authRouter = require("./controllers/auth.js");
 const userRouter = require('./controllers/user.js');
 const postRouter = require('./controllers/post.js');
-const commentRouter = require('./controllers/comment.js')
+const commentRouter = require('./controllers/comment.js');
+const uploadRouter = require('./controllers/upload.js');
 
 
 /* CONFIGURATIONS */
@@ -22,7 +23,7 @@ app.use("/auth", authRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
 app.use('/comment', commentRouter)
-app.use('/upload', upload)
+app.use('/upload', uploadRouter)
 
 /* MONGOOSE SETUP */
 const port = process.env.PORT || 8000;
