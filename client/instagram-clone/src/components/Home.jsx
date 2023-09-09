@@ -1,7 +1,8 @@
 import React from 'react'
-import { Outlet } from "react-router-dom";
 import Layout from "./Layout";
-import Modal, {ReactModal} from 'react-modal';
+import ModalPost from './ModelPost'
+import Post from './Post';
+
 
 
 
@@ -14,7 +15,9 @@ const Home = () => {
 	return (
 		<>
 			<Layout />
-			{/* <Outlet /> */}
+			<ModalPost />
+			<Post />
+			
 
 
 		

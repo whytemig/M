@@ -22,6 +22,7 @@ app.use("/auth", authRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
 app.use('/comment', commentRouter)
+app.use('/upload', upload)
 
 /* MONGOOSE SETUP */
 const port = process.env.PORT || 8000;
