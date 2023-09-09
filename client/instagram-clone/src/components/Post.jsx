@@ -1,23 +1,42 @@
-import React from 'react';
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from "react-redux";
 
-const Post = ({ isOpen, onClose, children }) => {
-  const modalClasses = isOpen ? 'fixed inset-0 flex items-center justify-center z-50' : 'hidden';
+
+
+
+const Post = () => {
+  const [posts, setPosts] = useState([])
+  
+  const token = useSelector(state => state.auth.token)
+  
+
+  useEffect(() => {
+
+     const fetchPosts = async() => {
+      try {
+        const response = await fetch(`http://localhost:5500/post/timestatus/posts`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const data = await response.json()
+        console.log(data);
+        // setPosts(data)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+    fetchPosts()
+  }, [])
+  
+
 
   return (
-    <div className={modalClasses}>
-      <div className="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-      <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50">
-        <div className="modal-close absolute top-0 right-0 cursor-pointer p-4" onClick={onClose}>
-          <svg className="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-            <path d="M1.39 1.405a1 1 0 011.407 0L9 7.593l6.193-6.188a1 1 0 111.414 1.414L10.414 9l6.193 6.193a1 1 0 11-1.414 1.414L9 10.407l-6.193 6.194a1 1 0 01-1.414-1.414L7.586 9 .976 2.599a1 1 0 010-1.414z"/>
-          </svg>
-        </div>
-        <div className="modal-content py-4 text-left px-6">
-          {children}
-        </div>
-      </div>
+    <div className='flex justify-center mx-auto bg-slate-400 h-full w-full max-w-[1240px]'>
+      <h1>Post</h1>
     </div>
-  );
-};
+  )
+}
 
-export default Post;
+export default Post
