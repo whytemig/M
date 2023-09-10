@@ -22,7 +22,7 @@ const Post = () => {
           }
         })
         const data = await response.json()
-      //  console.log(data);
+       console.log(data);
         setPosts(data)
       } catch (error) {
         console.log(error.message)
@@ -34,14 +34,15 @@ const Post = () => {
 
 
   return (
-    <div className='flex justify-center mx-auto'>
-      <h1>Post</h1>
-
-      {posts.map((post) =>{
-        return <SinglePost key={post._id } post={post}/>
-      })}
-    
+    <div className="min-h-screen flex justify-center ">
+      <div className="hidden px-4 md:block flex-1 p-4">Right Screen</div>
+      <div className="w-full grid grid-cols-1 gap-4 max-w-[960px] md:grid-cols-2 px-4">
+        {posts?.map((post) => {
+          return <SinglePost key={post._id} post={post} />;
+        })}
+      </div>
+      <div class="hidden px-4 md:block flex-1 p-4">Left Screen</div>
     </div>
-  )
+  );
 }
 export default Post
