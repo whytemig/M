@@ -9,6 +9,9 @@ const userRouter = require('./controllers/user.js');
 const postRouter = require('./controllers/post.js');
 const commentRouter = require('./controllers/comment.js');
 const uploadRouter = require('./controllers/upload.js');
+const { users, posts } = require('./data/data.js')
+const User = require('./models/User.js');
+const Post = require('./models/Post.js')
 
 
 /* CONFIGURATIONS */
@@ -36,5 +39,7 @@ mongoose
     );
 
     // INSERT FAKE DATA LATER......
+    // User.insertMany(users);
+    // Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
