@@ -24,7 +24,7 @@ export default function Modal() {
 
         if (photo) {
           const formData = new FormData();
-          filename = crypto.randomUUID() + photo.name;
+          filename =  photo.name;
           formData.append("filename", filename);
           formData.append("image", photo);
 
@@ -46,9 +46,10 @@ export default function Modal() {
           body: JSON.stringify({ ...state, photo: filename }),
         });
         const data = await res.json();
-        console.log(data)
+       
         setShowModal(false)
-        navigate("/");
+        
+        window.location.reload();
 
       } catch (error) {
         console.error(error);

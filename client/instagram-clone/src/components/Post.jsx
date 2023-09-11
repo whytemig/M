@@ -21,11 +21,11 @@ const Post = () => {
             'Authorization': `Bearer ${token}`
           }
         })
+        // console.log(response);
         const data = await response.json()
-       console.log(data);
         setPosts(data)
       } catch (error) {
-        console.log(error.message)
+        console.log(error)
       }
     }
     fetchPosts()
@@ -34,14 +34,14 @@ const Post = () => {
 
 
   return (
-    <div className="min-h-screen flex justify-center ">
-      <div className="hidden px-4 md:block flex-1 p-4">Right Screen</div>
-      <div className="w-full grid grid-cols-1 gap-4 max-w-[960px] md:grid-cols-2 px-4">
-        {posts?.map((post) => {
+    <div className="min-h-screen flex justify-center mx-auto">
+      
+      <div className="w-full grid grid-cols-2 gap-4 max-w-[960px] md:grid-cols-2 px-4">
+        {posts?.slice().reverse().map((post) => {
           return <SinglePost key={post._id} post={post} />;
         })}
       </div>
-      <div class="hidden px-4 md:block flex-1 p-4">Left Screen</div>
+      <div className="hidden px-4 md:block flex-1 p-4">Left Screen</div>
     </div>
   );
 }

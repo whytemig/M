@@ -1,20 +1,22 @@
 import "./App.css";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import ProfilePage from "./pages/Profile";
 import React, { useState } from "react";
-import Post from "./components/Post";
+
+import { useSelector } from "react-redux";
 
 
 function App() {
+	const { user } = useSelector((state) => state.auth);
 
 	return (
 		<>
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route path="/" element={user ? <Home /> : <Navigate to='/login' />} />
 					<Route path="signup" element={<SignupPage />} />
 					<Route path="login" element={<LoginPage />} />
 					<Route path="profile" element={<ProfilePage />} />
