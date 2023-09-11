@@ -8,6 +8,7 @@ import { BsBookmarkFill, BsBookmark } from "react-icons/bs";
 import { BiMessageRounded } from "react-icons/bi";
 import { BsFillTrashFill } from 'react-icons/bs'
 import Comment from './Comment';
+import { format } from "timeago.js";
 
 export const SinglePost = ({ post }) => {
    const { token, user } = useSelector((state) => state.auth);
@@ -129,23 +130,18 @@ export const SinglePost = ({ post }) => {
     }
   }
 
-
+// console.log(post);
     
   return (
     <>
       <div className="mx-auto p-4 w-full">
-        <div className="bg-white border rounded-sm w-full">
-          <div className="flex items-center px-4 py-3">
+        <div className="border rounded-sm w-full shadow-md">
+          <div className="flex items-center px-4 py-3 bg-">
             <Link>
               {/* link to profiledetails by user ID */}
-              <img
-                className="h-8 w-8 rounded-full"
-                src={
-                  post?.photo
-                    ? `http://localhost:5500/images/${post?.photo}`
-                    : "https://placewaifu.com/image/200"
-                }
-              />
+              <div className="bg-slate-600 rounded-full w-full h-full p-2 text-white">
+                {user && user.firstName.toString().charAt(0)}
+              </div>
             </Link>
             {/* link to profiledetails by user ID */}
             <div className="ml-3 ">
@@ -153,7 +149,10 @@ export const SinglePost = ({ post }) => {
                 {post.user.firstName}
               </span>
               <span className="text-gray-600 text-xs block">
-                {post.location}
+                Location: {post.location ? post.location : "Planet Earth"}
+              </span>
+              <span className="text-gray-600 text-xs block">
+                {format(post.updatedAt)}
               </span>
             </div>
           </div>
@@ -165,20 +164,26 @@ export const SinglePost = ({ post }) => {
                 : "https://placewaifu.com/image/200"
             }
           />
-          <div className="flex items-center justify-between mx-2 mt-3 mb-2 ">
+          <div className="flex items-center justify-around mx-2 mt-3 mb-2 ">
             <div className="flex">
               {user._id === post.user._id && (
-                <BsFillTrashFill
-                  size={25}
-                  onClick={() => setShowDeleteModal(!showDeleteModal)}
-                />
+                <div className="flex justify-start">
+                  <BsFillTrashFill
+                    className="mr-12"
+                    style={{ color: "red" }}
+                    size={25}
+                    onClick={() => setShowDeleteModal(!showDeleteModal)}
+                  />
+                </div>
               )}
               {showDeleteModal && (
                 <div className="absolute top-1/2 left-1/2  bg-red-500 border border-white rounded-lg p-3 flex flex-col gap-2">
                   <h3>Delete Post</h3>
                   <div className="flex justify-center gap-3 bg-gray-600 text-white">
                     <button onClick={handleDeletePOst}>Yes</button>
-                    <button onClick={() => setShowDeleteModal((prev) => !prev)}>
+                    <button
+                      onClick={() => setShowDeleteModal(!showDeleteModal)}
+                    >
                       No
                     </button>
                   </div>
@@ -208,7 +213,7 @@ export const SinglePost = ({ post }) => {
             </div>
           </div>
           <div className="font-semibold text-sm mx-4 mt-2 mb-4">
-            92,372 likes
+            {post.likes.length > 0 ? "Post Liked" : null}
           </div>
         </div>
         {showComment && (
@@ -230,7 +235,8 @@ export const SinglePost = ({ post }) => {
                 className="border-none outline-none bg-transparent  w-90 p-2 pl-1 transition-all duration-150"
                 placeholder="Comment on my Post!"
               />
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full"
+              <button
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full"
                 onClick={handleComment}
               >
                 Post
