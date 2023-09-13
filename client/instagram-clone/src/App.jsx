@@ -7,19 +7,22 @@ import SignupPage from "./pages/Signup";
 import ProfilePage from "./pages/Profile";
 import React, { useState } from "react";
 import Post from "./components/Post";
-
+import Layout from "./components/Layout";
 
 function App() {
-
 	return (
 		<>
-			<Routes>
-				<Route path="/" element={<Home />} />
+			
+				<Routes>
+					<Route path="/" element={<Layout />}>
+						<Route index element={<Home />} />
+						<Route path="profile" element={<ProfilePage />} />
+					</Route>
+
 					<Route path="signup" element={<SignupPage />} />
 					<Route path="login" element={<LoginPage />} />
-					<Route path="profile" element={<ProfilePage />} />
-				
-			</Routes>
+				</Routes>
+			
 		</>
 	);
 }
