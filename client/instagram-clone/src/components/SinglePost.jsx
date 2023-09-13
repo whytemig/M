@@ -1,8 +1,11 @@
-import React from 'react'
+import React from "react";
 
 export const SinglePost = ({ post }) => {
-    
-  return (
-    <div>SinglePost</div>
-  )
-}
+
+  
+	return (
+		<div>
+			{/* <p>'single-post'</p> */}
+		</div>
+	);
+};
