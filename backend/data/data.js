@@ -120,53 +120,47 @@ const users = [
 const posts = [
   {
     _id: new mongoose.Types.ObjectId(),
-    user: userIds[1],
+    user: new mongoose.Types.ObjectId("64fc86b3b61fa09c7aeb2189"),
     location: "New York, CA",
     desc: "Some really long random description",
     photo: "post1.jpeg",
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    user: userIds[3],
+    user: userIds[1],
     firstName: "Whatcha",
     lastName: "Doing",
     location: "Korea, CA",
-    desc:
-      "Another really long random description. This one is longer than the previous one.",
+    desc: "Another really long random description. This one is longer than the previous one.",
     photoh: "post2.jpeg",
-    
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    user: userIds[4],
+    user: new mongoose.Types.ObjectId("64fc86b3b61fa09c7aeb2189"),
     location: "Utah, CA",
     desc: "This is the last really long random description. This one is longer than the previous one.",
     photo: "post3.jpeg",
-  
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    user: userIds[5],
+    user: new mongoose.Types.ObjectId("64fc86b3b61fa09c7aeb2189"),
     location: "Los Angeles, CA",
     desc: "This is the last really long random description. This one is longer than the previous one. Man I'm bored. I'm going to keep typing until I run out of things to say.",
     photo: "post4.jpeg",
- 
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    user: userIds[6],
+    user: new mongoose.Types.ObjectId("64fc86b3b61fa09c7aeb2189"),
     location: "Chicago, IL",
     desc: "Just a short description. I'm tired of typing. I'm going to play video games now.",
     photo: "post5.jpeg",
-
   },
   {
     _id: new mongoose.Types.ObjectId(),
-    user: userIds[7],
+    user: new mongoose.Types.ObjectId("64fc86b3b61fa09c7aeb2189"),
     location: "Washington, DC",
     desc: "For the last time, I'm going to play video games now. I'm tired of typing. I'm going to play video games now.",
     photo: "post6.jpeg",
-
   },
 ];
 
