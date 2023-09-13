@@ -139,7 +139,7 @@ export const SinglePost = ({ post }) => {
           <div className="flex items-center px-4 py-3 bg-">
             <Link>
               {/* link to profiledetails by user ID */}
-              <div className="bg-slate-600 rounded-full w-full h-full p-2 text-white">
+              <div className="bg-slate-600 rounded-[50%] w-full h-full p-2 text-white">
                 {user && user.firstName.toString().charAt(0)}
               </div>
             </Link>
