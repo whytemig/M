@@ -1,88 +1,90 @@
-
-import React from 'react'
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsBookmarkFill, BsBookmark } from "react-icons/bs";
 import { BiMessageRounded } from "react-icons/bi";
-import { BsFillTrashFill } from 'react-icons/bs'
-import Comment from './Comment';
+import { BsFillTrashFill } from "react-icons/bs";
+import Comment from "./Comment";
 import { format } from "timeago.js";
 
 export const SinglePost = ({ post }) => {
-   const { token, user } = useSelector((state) => state.auth);
-   const [comments, setComments] = useState([]);
-   const [commentText, setCommentText] = useState("");
-   const [isCommentEmpty, setIsCommentEmpty] = useState(false);
-   const [isLiked, setIsLiked] = useState(post.likes.includes(user._id));
-   const [showDeleteModal, setShowDeleteModal] = useState(false);
-   const [isBookmarked, setIsBookmarked] = useState(
-     user?.bookmarkedPosts?.some(
-       (bookmarkedPost) => bookmarkedPost._id === post._id
-     )
-   );
-   const [showComment, setShowComment] = useState(false);
+  const { token, user } = useSelector((state) => state.auth);
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState("");
+  const [isCommentEmpty, setIsCommentEmpty] = useState(false);
+  const [isLiked, setIsLiked] = useState(post.likes.includes(user._id));
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(
+    user?.bookmarkedPosts?.some(
+      (bookmarkedPost) => bookmarkedPost._id === post._id
+    )
+  );
+  const [showComment, setShowComment] = useState(false);
   const dispatch = useDispatch();
-  
-// 1st FUNCTION - GET ALL THE COMMENTS FROM THE COMMENT MONGOOSE COLLECTION.
+
+  // 1st FUNCTION - GET ALL THE COMMENTS FROM THE COMMENT MONGOOSE COLLECTION.
   useEffect(() => {
     const fetchComments = async () => {
       try {
-         const response = await fetch(
-           `http://localhost:5500/comment/${post._id}`,
-           {
-             headers: {
-               "Authorization": `Bearer ${token}`,
-             },
-           }
-         );
-        const data = await response.json()
+        const response = await fetch(
+          `http://localhost:5500/comment/${post._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
         // console.log(data)
-        setComments(data)
+        setComments(data);
       } catch (error) {
-        console.log(error.message)
+        console.log(error.message);
       }
-    }
-    fetchComments()
-  }, [post._id])
+    };
+    fetchComments();
+  }, [post._id]);
 
   // DELETE THE POST BY POSTID IF THE USERID MATCHES.
-  const handleDeletePOst = async() =>{
+  const handleDeletePOst = async () => {
     try {
-      const res = await fetch(`http://localhost:5500/post/find/delete/${post._id}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-        method: "DELETE",
-      });
-      const data = await res.json()
+      const res = await fetch(
+        `http://localhost:5500/post/find/delete/${post._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          method: "DELETE",
+        }
+      );
+      const data = await res.json();
       // console.log(data)
 
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  // UPDATE THE LIKES 
+  // UPDATE THE LIKES
   const handleUpdateLikes = async () => {
     try {
       await fetch(`http://localhost:5500/post/likeorunlike/${post._id}`, {
         headers: {
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        method:"PUT"
+        method: "PUT",
       });
-      
+
       // console.log(token);
       // console.log(data)
-      setIsLiked(!isLiked)
+      setIsLiked(!isLiked);
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   // UPDATE SAVE
   //  const handleBookmark = async () => {
@@ -99,40 +101,36 @@ export const SinglePost = ({ post }) => {
   //      console.error(error);
   //    }
   //  };
-  
-
 
   // POST A COMMENT
   const handleComment = async () => {
     if (commentText === "") {
-      setIsCommentEmpty(true)
+      setIsCommentEmpty(true);
     }
 
     try {
       const response = await fetch(`http://localhost:5500/comment`, {
         headers: {
-          "Content-Type": 'application/json',
-          "Authorization": `Bearer ${token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        method: 'POST',
-        body: JSON.stringify({ commentText, post: post._id })
+        method: "POST",
+        body: JSON.stringify({ commentText, post: post._id }),
       });
 
       const data = await response.json();
 
       console.log(data);
 
-      setComments(!comments)
-      setCommentText('')
-
-
+      setComments(!comments);
+      setCommentText("");
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
-// console.log(post);
-    
+  // console.log(post);
+
   return (
     <>
       <div className="mx-auto p-4 w-full">
@@ -158,12 +156,13 @@ export const SinglePost = ({ post }) => {
             </div>
           </div>
           <img
-            className="w-full h-64 object-fit"
+            className="w-full h-64 object-cover object-center"
             src={
               post?.photo
                 ? `http://localhost:5500/images/${post?.photo}`
                 : "https://placewaifu.com/image/200"
             }
+            alt="Post Image"
           />
           <div className="flex items-center justify-around mx-2 mt-3 mb-2 ">
             <div className="flex">
@@ -251,4 +250,4 @@ export const SinglePost = ({ post }) => {
       </div>
     </>
   );
-}
+};

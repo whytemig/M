@@ -4,7 +4,7 @@ import HamburgerNav from "./HamburgerNav";
 // Placeholder component for the logo
 const Logo = () => {
   return <div className="text-3xl font-bold">Logo</div>;
-};
+}
 
 // Placeholder component for the dark mode button
 const DarkModeButton = () => {
