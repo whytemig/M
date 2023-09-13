@@ -122,7 +122,7 @@ export const SinglePost = ({ post }) => {
 
       console.log(data);
 
-      setComments(!comments);
+      setComments([...comments, data]);
       setCommentText("");
     } catch (error) {
       console.log(error.message);
