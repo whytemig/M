@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SinglePost } from "./SinglePost";
+
 import { useNavigate } from "react-router-dom";
 
 const Post = () => {
@@ -110,5 +111,6 @@ const Post = () => {
       </div>
     </div>
   );
+
 };
 export default Post;

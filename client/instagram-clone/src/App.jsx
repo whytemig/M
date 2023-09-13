@@ -7,6 +7,7 @@ import SignupPage from "./pages/Signup";
 import ProfilePage from "./pages/Profile";
 import React, { useState } from "react";
 
+
 import { useSelector } from "react-redux";
 
 
@@ -17,11 +18,11 @@ function App() {
 		<>
 			<Routes>
 				<Route path="/" element={user ? <Home /> : <Navigate to='/login' />} />
+
 					<Route path="signup" element={<SignupPage />} />
 					<Route path="login" element={<LoginPage />} />
-					<Route path="profile" element={<ProfilePage />} />
-				
-			</Routes>
+				</Routes>
+			
 		</>
 	);
 }
