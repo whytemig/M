@@ -26,8 +26,8 @@ app.use("/images", express.static("public/images"));
 app.use("/auth", authRouter);
 app.use('/user', userRouter);
 app.use('/post', postRouter);
-app.use('/comment', commentRouter)
-app.use('/upload', uploadRouter)
+app.use('/comment', commentRouter);
+app.use('/upload', uploadRouter);
 
 /* MONGOOSE SETUP */
 const port = process.env.PORT || 8000;
