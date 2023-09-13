@@ -238,7 +238,7 @@ userRouter.put('/bookmark/:postId', authToken, async (req, res) => {
         } else {
           // some takes in a callback function where you can write your own logic to determine if an array contains some element which matches the conditions you wrote. includes does a generic equalTo comparison on every element and will return true if at least one element in the array is equal to the value to find.
             
-            console.log(post.user)
+            // console.log(post.user)
 
 
             let postUserArray = post.user.bookMarkedPost;

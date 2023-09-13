@@ -29,7 +29,9 @@ postRouter.get("/timestatus/posts", authToken, async (req, res) => {
         // get the ID for the login user
         const loginUser = await User.findById(id);
         // find all post 
-        const posts = await Post.find({}).populate('user', '-password')
+        const posts = await Post.find({})
+          .populate("user", "-password")
+          .sort({ createdAt: -1 });
 
         // Find all the post for the login user.
 

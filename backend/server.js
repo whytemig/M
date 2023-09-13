@@ -9,9 +9,9 @@ const userRouter = require('./controllers/user.js');
 const postRouter = require('./controllers/post.js');
 const commentRouter = require('./controllers/comment.js');
 const uploadRouter = require('./controllers/upload.js');
-const { users, posts } = require('./data/data.js')
-const User = require('./models/User.js');
-const Post = require('./models/Post.js')
+const { posts } = require('./data/data.js');
+// const User = require('./models/User.js');
+const Post = require('./models/Post.js');
 
 
 /* CONFIGURATIONS */
@@ -20,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use("/images", express.static("public/images"));
 
 /* ROUTES */
 app.use("/auth", authRouter);
