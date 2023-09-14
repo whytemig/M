@@ -23,41 +23,73 @@ postRouter.get("/find/posts/:id", authToken, async (req, res) => {
 
 
 // get timeline posts??? I don't think i'll need this but we'll see
+// postRouter.get("/timestatus/posts", authToken, async (req, res) => {
+//     const id = req.user.id;
+//     try {
+//         // get the ID for the login user
+//         const loginUser = await User.findById(id);
+//         // find all post
+//         const posts = await Post.find({user: loginUser._id})
+//           .populate("user", "-password")
+//           .sort({ createdAt: -1 });
+
+//         // Find all the post for the login user.
+
+//         const loginUserPosts = await Post.find({ user: loginUser._id }).populate('user', '-password');
+
+//         // Find friends Posts by using the filter method, if the
+
+//         const friendsPost = await Post.find({
+//           user: { $in: loginUser.followings },
+//         })
+//           .populate("user", "-password")
+//           .sort({ createdAt: -1 });
+
+//         let timeStatusPosts = loginUserPosts.concat(...friendsPost);
+
+//         if (timeStatusPosts.length > 20) {
+//           timeStatusPosts = timeStatusPosts.slice(0, 20);
+//         }
+
+//         return res.status(200).json(timeStatusPosts);
+
+        
+
+//     } catch (err) {
+//          return res.status(404).json({ message: err.message });
+//     }
+    
+// });
+
 postRouter.get("/timestatus/posts", authToken, async (req, res) => {
     const id = req.user.id;
     try {
         // get the ID for the login user
         const loginUser = await User.findById(id);
-        // find all post 
-        const posts = await Post.find({})
-          .populate("user", "-password")
-          .sort({ createdAt: -1 });
 
-        // Find all the post for the login user.
-
-        const loginUserPosts = await Post.find({ user: loginUser._id }).populate('user', '-password');
-
-        // Find friends Posts by using the filter method, if the 
-
-        const friendsPost = posts.filter((post) => {
-            return loginUser.followings.includes(post.user._id)
+        // Find all the post for the login user and friends in descending order
+        const userAndFriendsPosts = await Post.find({
+            $or: [
+                { user: loginUser._id },
+                { user: { $in: loginUser.followings } }
+            ]
         })
+        .populate('user', '-password')
+        .sort({ createdAt: 1 });
 
-        let timeStatusPosts = loginUserPosts.concat(...friendsPost);
-
-        if (timeStatusPosts.length > 20) {
-          timeStatusPosts = timeStatusPosts.slice(0, 20);
+        if (userAndFriendsPosts.length > 20) {
+            userAndFriendsPosts = userAndFriendsPosts.slice(0, 20);
         }
 
-        return res.status(200).json(timeStatusPosts);
-
-        
+        return res.status(200).json(userAndFriendsPosts);
 
     } catch (err) {
-         return res.status(404).json({ message: err.message });
+        return res.status(404).json({ message: err.message });
     }
-    
 });
+
+
+
 // get one post
 postRouter.get('/find/:id', async (req, res) => {
         const id = req.params.id;

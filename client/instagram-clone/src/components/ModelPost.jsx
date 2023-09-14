@@ -50,9 +50,11 @@ export default function Modal() {
         setShowModal(false)
         
         window.location.reload();
+        toast.success("Post!!");
 
       } catch (error) {
         console.error(error);
+        toast.warning(error);
       }
     };
     
@@ -66,7 +68,7 @@ export default function Modal() {
           type="button"
           onClick={() => setShowModal(true)}
         >
-         Create a Post
+          Create a Post
         </button>
       </div>
       {showModal ? (
@@ -77,9 +79,7 @@ export default function Modal() {
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                  <h3
-                    className="text-3xl font-semibold"
-                  >
+                  <h3 className="text-3xl font-semibold">
                     Post Your Adventures
                   </h3>
                   <button
@@ -147,7 +147,7 @@ export default function Modal() {
                       <button
                         type="submit"
                         className="text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 dark:focus:ring-blue-800 "
-                        onClick={() => toast.success("Post!!")}
+                        // onClick={()=> setTimeout(toast.success("Post!!"),5000)}
                       >
                         Submit
                       </button>
