@@ -26,7 +26,7 @@ const Post = () => {
         response.status === 500 && navigate('/login');
         
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         // console.log(user);
         // console.log(token);
         setPosts(data);

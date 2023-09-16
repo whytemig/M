@@ -231,7 +231,7 @@ userRouter.put('/bookmark/:postId', authToken, async (req, res) => {
   // After using the populate method, we can see that in the output we can get all the user data inside the postedBy field of posts.
     try {
         const post = await Post.findById(req.params.postId).populate("user", '-password')
-        console.log(post)
+        // console.log(post)
 
         if (!post) {
            return res.status(404).json({ message: "No such post" }); 
@@ -241,7 +241,8 @@ userRouter.put('/bookmark/:postId', authToken, async (req, res) => {
             // console.log(post.user)
 
 
-            let postUserArray = post.user.bookMarkedPost;
+          const postUserArray = post.user.bookmarkedPosts;
+          // console.log(postUserArray);
 
             if (postUserArray.some((post)=> post._id === req.params.postId)) {
                 await User.findByIdAndUpdate(req.user.id, { $pull: { 'bookmarkedPosts': post } })

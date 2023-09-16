@@ -2,13 +2,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { HiOutlineDotsVertical } from "react-icons/hi";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsBookmarkFill, BsBookmark } from "react-icons/bs";
 import { BiMessageRounded } from "react-icons/bi";
 import { BsFillTrashFill } from "react-icons/bs";
 import Comment from "./Comment";
 import { format } from "timeago.js";
+import { bookmarkPost } from "../redux/authSlice";
 
 export const SinglePost = ({ post }) => {
   const { token, user } = useSelector((state) => state.auth);
@@ -33,13 +33,14 @@ export const SinglePost = ({ post }) => {
           `http://localhost:5500/comment/${post._id}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              "Authorization": `Bearer ${token}`,
             },
           }
         );
         const data = await response.json();
         // console.log(data)
         setComments(data);
+        console.log(comments);
       } catch (error) {
         console.log(error.message);
       }
@@ -87,25 +88,33 @@ export const SinglePost = ({ post }) => {
   };
 
   // UPDATE SAVE
-  //  const handleBookmark = async () => {
-  //    try {
-  //      await fetch(`http://localhost:5500/user/bookmark/${post._id}`, {
-  //        headers: {
-  //          "Authorization": `Bearer ${token}`,
-  //        },
-  //        method: "PUT",
-  //      });
-  //      dispatch(bookmarkPost(post));
-  //      setIsBookmarked((prev) => !prev);
-  //    } catch (error) {
-  //      console.error(error);
-  //    }
-  //  };
+   const handleBookmark = async () => {
+     try {
+      await fetch(`http://localhost:5500/user/bookmark/${post._id}`, {
+         headers: {
+           "Authorization": `Bearer ${token}`,
+         },
+         method: "PUT"
+      });
+       
+       dispatch(bookmarkPost(post));
+       setIsBookmarked(!isBookmarked);
+     } catch (error) {
+       console.log(error.message);
+     }
+   };
+
+
 
   // POST A COMMENT
   const handleComment = async () => {
     if (commentText === "") {
       setIsCommentEmpty(true);
+
+       setTimeout(() => {
+         setIsCommentEmpty(false)
+       }, 2000);
+      return 
     }
 
     try {
@@ -122,14 +131,15 @@ export const SinglePost = ({ post }) => {
 
       console.log(data);
 
-      setComments([...comments, data]);
+      setComments(...comments, data );
       setCommentText("");
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  // console.log(post);
+  console.log(comments);
+
 
   return (
     <>
@@ -191,11 +201,13 @@ export const SinglePost = ({ post }) => {
               )}
 
               {/* SAVE */}
-              {isBookmarked ? (
-                <BsBookmarkFill size={25} />
-              ) : (
-                <BsBookmark size={25} />
-              )}
+              <div onClick={handleBookmark}>
+                {isBookmarked ? (
+                  <BsBookmarkFill size={25} />
+                ) : (
+                  <BsBookmark size={25} />
+                )}
+              </div>
             </div>
             {/* LIKED */}
             <div className="flex">
@@ -213,15 +225,15 @@ export const SinglePost = ({ post }) => {
             </div>
           </div>
           <div className="font-semibold text-sm mx-4 mt-2 mb-4">
-            {post.likes.length > 0 ? "Post Liked" : null}
+            {isLiked ? "Post Liked" : null}
           </div>
         </div>
         {showComment && (
           <div className="bg-slate-400 rounded-b-md">
             <div className="flex flex-col gap-7 p-6 border-b border-gray-500 max-h-[550px] overflow-auto">
-              {comments?.length > 0 ? (
+              {comments.length > 0 ? (
                 comments.map((comment) => (
-                  <Comment c={comment} key={comment._id} />
+                  <Comment com={comment} key={comment._id} />
                 ))
               ) : (
                 <span className="ml-3 text-lg">No comments</span>

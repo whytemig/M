@@ -6,13 +6,12 @@ const commentRouter = express.Router();
 // Get all comments that was posted.
 
 commentRouter.get("/:postId", authToken, async (req, res) => {
-  const { id } = req.params.postId;
+  const  id  = req.params.postId;
 
   try {
-    const comments = await Comment.find({ id })
+    const comments = await Comment.find({ post: id })
       .populate("user", "-password")
       .populate("post", "-user");
-
     res.status(200).json(comments);
   } catch (err) {
     res.status(404).json({ message: err.message });
@@ -35,8 +34,12 @@ commentRouter.get("/find/:commentId", authToken, async (req, res) => {
 
 commentRouter.post("/", authToken, async (req, res) => {
   try {
-    const newComment = await Comment.create({ ...req.body, user: req.user.id });
-    return res.status(200).json(newComment);
+   const commentData = { ...req.body, user: req.user.id };
+   const newComment = await Comment.create(commentData);
+   const populatedComment = await newComment
+     .populate("user", "-password");
+
+   return res.status(200).json(populatedComment);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -88,7 +91,7 @@ commentRouter.delete('/delete/:commentId', authToken, async (req, res) => {
 
 // like/unlike comment
 
-commentRouter.delete('/like/:commentId', authToken, async (req, res) => {
+commentRouter.put('/like/:commentId', authToken, async (req, res) => {
     // get the user Id;
     const loginId = req.user.id; 
     const commentId = req.params.commentId;
