@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -33,14 +32,13 @@ export const SinglePost = ({ post }) => {
           `http://localhost:5500/comment/${post._id}`,
           {
             headers: {
-              "Authorization": `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         const data = await response.json();
         // console.log(data)
         setComments(data);
-        console.log(comments);
       } catch (error) {
         console.log(error.message);
       }
@@ -88,33 +86,31 @@ export const SinglePost = ({ post }) => {
   };
 
   // UPDATE SAVE
-   const handleBookmark = async () => {
-     try {
+  const handleBookmark = async () => {
+    try {
       await fetch(`http://localhost:5500/user/bookmark/${post._id}`, {
-         headers: {
-           "Authorization": `Bearer ${token}`,
-         },
-         method: "PUT"
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        method: "PUT",
       });
-       
-       dispatch(bookmarkPost(post));
-       setIsBookmarked(!isBookmarked);
-     } catch (error) {
-       console.log(error.message);
-     }
-   };
 
-
+      dispatch(bookmarkPost(post));
+      setIsBookmarked(!isBookmarked);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   // POST A COMMENT
   const handleComment = async () => {
     if (commentText === "") {
       setIsCommentEmpty(true);
 
-       setTimeout(() => {
-         setIsCommentEmpty(false)
-       }, 2000);
-      return 
+      setTimeout(() => {
+        setIsCommentEmpty(false);
+      }, 2000);
+      return;
     }
 
     try {
@@ -129,17 +125,12 @@ export const SinglePost = ({ post }) => {
 
       const data = await response.json();
 
-      console.log(data);
-
-      setComments(...comments, data );
+      setComments(...comments, data);
       setCommentText("");
     } catch (error) {
       console.log(error.message);
     }
   };
-
-  console.log(comments);
-
 
   return (
     <>

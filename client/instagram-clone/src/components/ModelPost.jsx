@@ -5,70 +5,68 @@ import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Modal() {
-    const [showModal, setShowModal] = useState(false);
-      const [state, setState] = useState({});
-      const [photo, setPhoto] = useState("");
-      const { token } = useSelector((state) => state.auth);
-    const navigate = useNavigate();
-      const handleState = (e) => {
-        setState((prev) => {
-          return { ...prev, [e.target.name]: e.target.value };
-        });
-    };
-    
-    const handleCreatePost = async (e) => {
-      e.preventDefault();
+  const [showModal, setShowModal] = useState(false);
+  const [state, setState] = useState({});
+  const [photo, setPhoto] = useState("");
+  const { token } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const handleState = (e) => {
+    setState((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
 
-      try {
-        let filename = null;
+  const handleCreatePost = async (e) => {
+    e.preventDefault();
 
-        if (photo) {
-          const formData = new FormData();
-          filename =  photo.name;
-          formData.append("filename", filename);
-          formData.append("image", photo);
+    try {
+      let filename = null;
 
-          await fetch(`http://localhost:5500/upload/image`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            method: "POST",
-            body: formData,
-          });
-        }
+      if (photo) {
+        const formData = new FormData();
+        filename = photo.name;
+        formData.append("filename", filename);
+        formData.append("image", photo);
 
-        const res = await fetch(`http://localhost:5500/post/create`, {
+        await fetch(`http://localhost:5500/upload/image`, {
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           method: "POST",
-          body: JSON.stringify({ ...state, photo: filename }),
+          body: formData,
         });
-        const data = await res.json();
-       
-        setShowModal(false)
-        
-        window.location.reload();
-        toast.success("Post!!");
-
-      } catch (error) {
-        console.error(error);
-        toast.warning(error);
       }
-    };
-    
 
+      const res = await fetch(`http://localhost:5500/post/create`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        method: "POST",
+        body: JSON.stringify({ ...state, photo: filename }),
+      });
+      const data = await res.json();
+
+      setShowModal(false);
+
+      window.location.reload();
+      toast.success("Post!!");
+    } catch (error) {
+      console.error(error);
+      toast.warning(error);
+    }
+  };
 
   return (
     <>
       <div className="flex justify-center mx-auto max-w-[1240px] ">
         <button
-          className="bg-cyan-500 text-white  font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none my-2 mx-2 ease-linear transition-all duration-150 w-60"
+          className="bg-transparent text-black border-2 
+          font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-50 ease-linear transition-all duration-150 w-15"
           type="button"
           onClick={() => setShowModal(true)}
         >
-          Create a Post
+          Post
         </button>
       </div>
       {showModal ? (

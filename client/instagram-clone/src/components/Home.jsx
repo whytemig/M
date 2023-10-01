@@ -4,13 +4,13 @@ import ModalPost from "./ModelPost";
 import Post from "./Post";
 
 const Home = () => {
-	return (
-		<>
-			<Layout />
-			<ModalPost />
-			<Post />
-		</>
-	);
+  return (
+    <>
+      <Layout />
+
+      <Post />
+    </>
+  );
 };
 
 export default Home;

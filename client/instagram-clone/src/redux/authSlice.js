@@ -1,10 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user: null,
-    token: null
-}
+  user: null,
+  token: null,
+};
 
 export const authSlice = createSlice({
   name: "auth",
@@ -36,9 +35,20 @@ export const authSlice = createSlice({
         state.user.bookmarkedPosts.push(action.payload);
       }
     },
+    handleFollow(state, { payload }) {
+      if (state.user.followings.includes(payload)) {
+        state.user.followings = state.user.followings.filter(
+          (id) => id !== payload
+        );
+      } else {
+        console.log(payload);
+        state.user.followings.push(payload);
+      }
+    },
   },
 });
 
-export const { register, login, logout, bookmarkPost } = authSlice.actions;
+export const { register, login, logout, bookmarkPost, handleFollow } =
+  authSlice.actions;
 
 export default authSlice.reducer;
