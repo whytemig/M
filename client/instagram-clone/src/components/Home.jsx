@@ -1,13 +1,11 @@
-import React from "react";
 import Layout from "./Layout";
-import ModalPost from "./ModelPost";
 import Post from "./Post";
+import ProfileDetails from "./ProfileDetails";
 
 const Home = () => {
   return (
     <>
       <Layout />
-
       <Post />
     </>
   );

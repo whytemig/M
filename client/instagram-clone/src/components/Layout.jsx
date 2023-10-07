@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import ModalPost from "./ModelPost";
 import { useEffect, useState } from "react";
 import image from "/message1.png";
+import { useSelector } from "react-redux";
 
 const Layout = () => {
+  const { user, token } = useSelector((state) => state.auth);
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -110,7 +112,7 @@ const Layout = () => {
                   {/* PROFILE LINK AND ICON */}
                   <li>
                     <Link
-                      to="/profile"
+                      to={`/profileDetails/${user._id}`}
                       className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black-700 md:p-0 md:dark:hover:text-black-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                     >
                       <img
