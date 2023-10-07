@@ -23,11 +23,10 @@ const Post = () => {
             },
           }
         );
-
+        console.log(response);
         response.status === 500 && navigate("/login");
 
         const data = await response.json();
-
         setPosts(data);
       } catch (error) {
         console.log(error);
@@ -41,7 +40,7 @@ const Post = () => {
       <div className="min-h-screen flex justify-center mx-auto">
         <div className="w-full grid grid-cols-2 gap-4 max-w-[960px] md:grid-cols-2 px-4">
           {posts
-            .slice()
+            ?.slice()
             .reverse()
             .map((post) => {
               return <SinglePost key={post._id} post={post} />;

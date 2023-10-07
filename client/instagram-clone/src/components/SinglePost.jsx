@@ -131,6 +131,7 @@ export const SinglePost = ({ post }) => {
       console.log(error.message);
     }
   };
+  console.log(post);
 
   return (
     <>
@@ -140,7 +141,9 @@ export const SinglePost = ({ post }) => {
             <Link>
               {/* link to profiledetails by user ID */}
               <div className="bg-slate-600 rounded-[50%] w-full h-full p-2 text-white">
-                {user && user.firstName.toString().charAt(0)}
+                {user._id === post.user._id
+                  ? user.firstName.toString().charAt(0)
+                  : post.user.firstName.toString().charAt(0)}
               </div>
             </Link>
             {/* link to profiledetails by user ID */}
@@ -223,7 +226,7 @@ export const SinglePost = ({ post }) => {
           <div className="bg-slate-400 rounded-b-md">
             <div className="flex flex-col gap-7 p-6 border-b border-gray-500 max-h-[550px] overflow-auto">
               {comments.length > 0 ? (
-                comments.map((comment) => (
+                comments?.map((comment) => (
                   <Comment com={comment} key={comment._id} />
                 ))
               ) : (

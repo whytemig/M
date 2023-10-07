@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { handleFollow } from "../redux/authSlice";
@@ -21,6 +21,7 @@ const SuggestedFriends = () => {
         );
 
         const data = await response.json();
+        console.log(data);
         setSuggestedUsers(data);
       } catch (error) {
         console.log(error.message);

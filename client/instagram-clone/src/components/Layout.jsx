@@ -1,28 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ModalPost from "./ModelPost";
-import { useEffect, useState } from "react";
 import image from "/message1.png";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { AiOutlineStop } from "react-icons/ai";
+import { logout } from "../redux/authSlice";
 
 const Layout = () => {
-  const { user, token } = useSelector((state) => state.auth);
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
+  const { user } = useSelector((state) => state.auth);
+  // console.log(user);
 
-  const handleToggle = (e) => {
-    if (e.target.checked) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
   };
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html").setAttribute("data-theme", localTheme);
-  }, [theme]);
 
   return (
     <>
@@ -37,11 +30,7 @@ const Layout = () => {
             <div className="flex md:order-2">
               <label className="swap swap-rotate">
                 {/* this hidden checkbox controls the state */}
-                <input
-                  type="checkbox"
-                  onChange={handleToggle}
-                  checked={theme === "light" ? false : true}
-                />
+                <input type="checkbox" />
               </label>
               {/* Mig nav bar button? */}
               <div className="flex justify-around mx-auto">
@@ -101,18 +90,17 @@ const Layout = () => {
                       href="#"
                       className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black-700 md:p-0 md:dark:hover:text-black-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                     >
-                      <img
-                        width="40"
-                        height="40"
-                        src="https://img.icons8.com/small/128/search--v1.png"
-                        alt="search--v1"
+                      <AiOutlineStop
+                        size={34}
+                        color="red"
+                        onClick={handleLogout}
                       />
                     </a>
                   </li>
                   {/* PROFILE LINK AND ICON */}
                   <li>
                     <Link
-                      to={`/profileDetails/${user._id}`}
+                      to={`/profileDetails/${user?._id}`}
                       className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-black-700 md:p-0 md:dark:hover:text-black-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                     >
                       <img
