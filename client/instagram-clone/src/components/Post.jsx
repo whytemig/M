@@ -23,7 +23,7 @@ const Post = () => {
             },
           }
         );
-        console.log(response);
+        // console.log(response);
         response.status === 500 && navigate("/login");
 
         const data = await response.json();

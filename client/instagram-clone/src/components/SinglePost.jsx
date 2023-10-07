@@ -131,7 +131,7 @@ export const SinglePost = ({ post }) => {
       console.log(error.message);
     }
   };
-  console.log(post);
+  // console.log(post);
 
   return (
     <>
