@@ -143,7 +143,7 @@ export const SinglePost = ({ post }) => {
               <div className="bg-slate-600 rounded-[50%] w-full h-full p-2 text-white">
                 {user._id === post.user._id
                   ? user.firstName.toString().charAt(0)
-                  : post.user.firstName.toString().charAt(0)}
+                  : post?.user?.firstName?.toString().charAt(0)}
               </div>
             </Link>
             {/* link to profiledetails by user ID */}

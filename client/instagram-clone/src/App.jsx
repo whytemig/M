@@ -15,18 +15,9 @@ function App() {
       <Routes>
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
 
-        <Route
-          path="signup"
-          element={!user ? <SignupPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="login"
-          element={!user ? <LoginPage /> : <Navigate to="/" />}
-        />
-        <Route
-          path="/profileDetails/:id"
-          element={user ? <ProfileDetails /> : <Navigate to="/login" />}
-        />
+        <Route path="signup" element={<SignupPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="/profileDetails/:id" element={<ProfileDetails />} />
       </Routes>
     </>
   );
